@@ -1,0 +1,40 @@
+@{
+    ViewData["Title"] = "Sobre";
+}
+
+<h1>Sobre o Projeto</h1>
+
+<p class="lead">
+    O <strong>Equinox Project</strong> é uma aplicação de referência, de código aberto, que mostra como construir
+    sistemas corporativos em .NET com uma arquitetura limpa, organizada e fácil de manter.
+</p>
+
+<h3>O que ele faz</h3>
+<p>
+    Na prática, a aplicação oferece um cadastro de clientes completo (criar, consultar, editar e excluir),
+    com autenticação de usuários e controle de permissões. Toda alteração em um cliente gera um evento que
+    fica registrado, permitindo consultar o histórico de mudanças de cada registro.
+</p>
+
+<h3>Como está organizado</h3>
+<ul>
+    <li><strong>Domain-Driven Design (DDD):</strong> as regras de negócio ficam concentradas na camada de domínio, isoladas da infraestrutura.</li>
+    <li><strong>CQRS:</strong> as operações de escrita (comandos) ficam separadas das de leitura (consultas).</li>
+    <li><strong>Event Sourcing:</strong> os eventos de domínio são armazenados para manter o histórico das alterações.</li>
+    <li><strong>Unit of Work e Repository:</strong> o acesso a dados é centralizado, e cada operação é gravada de forma consistente.</li>
+    <li><strong>Validação:</strong> os comandos são validados com FluentValidation antes de chegar ao banco.</li>
+</ul>
+
+<h3>Camadas</h3>
+<ul>
+    <li><strong>UI Web (MVC)</strong> e <strong>API REST</strong>: interfaces de acesso para usuários e outros sistemas.</li>
+    <li><strong>Application</strong>: orquestra os casos de uso e converte dados entre a interface e o domínio.</li>
+    <li><strong>Domain</strong>: entidades, comandos, eventos e regras de negócio.</li>
+    <li><strong>Infra</strong>: persistência com Entity Framework Core, mensageria (mediator), identidade e injeção de dependência.</li>
+</ul>
+
+<h3>Tecnologias</h3>
+<p>
+    .NET 9, ASP.NET Core MVC e Web API, ASP.NET Identity, Entity Framework Core (SQL Server ou SQLite),
+    FluentValidation, NetDevPack e Swagger.
+</p>

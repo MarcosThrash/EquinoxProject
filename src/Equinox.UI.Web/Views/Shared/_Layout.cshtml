@@ -10,21 +10,52 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
-            <div class="container">
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand"><img src="~/images/logo.png" style="width: 170px; height: 37px" alt="Equinox Project" /></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+        @{
+            var currentArea = ViewContext.RouteData.Values["area"]?.ToString() ?? "";
+            var currentController = ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
+            var currentAction = ViewContext.RouteData.Values["action"]?.ToString() ?? "";
+            var isRootArea = string.IsNullOrEmpty(currentArea);
+            var homeActive = isRootArea && currentController == "Home" && currentAction == "Index" ? "active" : "";
+            var customerActive = isRootArea && currentController == "Customer" ? "active" : "";
+            var sobreActive = isRootArea && currentController == "Home" && currentAction == "Sobre" ? "active" : "";
+        }
+        <div class="container">
+            <nav class="navbar navbar-expand-md glass-nav">
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand"><img src="~/images/logo.png" alt="Equinox Project" /></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav" aria-controls="mainNav"
+                        aria-expanded="false" aria-label="Abrir menu">
+                    <i class="fas fa-bars"></i>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1">
-                        <li><a class="nav-link text-light" asp-area="" asp-controller="Customer" asp-action="Index">Customers</a></li>
+                <div class="collapse navbar-collapse" id="mainNav">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link @homeActive" asp-area="" asp-controller="Home" asp-action="Index" title="Início">
+                                <i class="fas fa-home"></i><span class="nav-text">Início</span>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle @customerActive" href="#" id="customerMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-users"></i><span class="nav-text">Customers</span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="customerMenu">
+                                <a class="dropdown-item" asp-area="" asp-controller="Customer" asp-action="Index">
+                                    <i class="fas fa-list-ul"></i><span>Listar clientes</span><i class="fas fa-chevron-right item-arrow"></i>
+                                </a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Customer" asp-action="Create">
+                                    <i class="fas fa-user-plus"></i><span>Novo cliente</span><i class="fas fa-chevron-right item-arrow"></i>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @sobreActive" asp-area="" asp-controller="Home" asp-action="Sobre" title="Sobre">
+                                <i class="fas fa-info-circle"></i><span class="nav-text">Sobre</span>
+                            </a>
+                        </li>
                     </ul>
+                    <partial name="_LoginPartial" />
                 </div>
-            </div>
-        </nav>
+            </nav>
+        </div>
     </header>
     <div class="container">
         <main role="main" class="pb-3">
